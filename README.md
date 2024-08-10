@@ -15,7 +15,7 @@ ii Play with friends
 
 # Getting Started
 To get started with this project, follow these steps:
-1. Clone the repository: [https://github.com/Manoj-412/T.git](https://github.com/Manoj-412/TIC-TAC-TOE-GAME.git)
+1. Clone the repository: https://github.com/Manoj-412/TIC-TAC-TOE-GAME.git
 2. Open the project in your preferred code editor.
 3. Launch the index.html file in a web browser to start playing the Tic Tac Toe game.
 
