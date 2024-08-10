@@ -1,0 +1,485 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&family=Rubik+Marker+Hatch&display=swap');
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    cursor: default;
+}
+
+:root {
+    --button-color: linear-gradient(to bottom, #ffd9eb,#f6069a);
+    --background-dark: #666 radial-gradient(
+        #ff018c,
+        #000000b3);
+    --background-light: #666 radial-gradient(
+        #00fe73,
+        #ffffff);
+    --modal-background: rgba(0, 0, 0, 0.8);
+    --text-shadow:  0.1em 0.1em 0.2em rgba(0,0,0,0.5);
+    --box-shadow: inset 0.1em 0.1em 0.3em 0.1em rgba(0,0,0,0.8);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;        
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Rubik Marker Hatch', cursive, Arial, sans-serif;
+    background: var(--background-dark);
+    color: #ccc;
+    text-shadow: var(--text-shadow);
+}
+
+.title {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 2.5em;
+    color: #333;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6.3rem;
+    font-size: 0.75rem;
+    margin-top: 1rem;
+}
+
+i {
+    align-items: center;
+    cursor: pointer;
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+main {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: repeat(3, minmax(100px, auto));
+    grid-template-rows: repeat(3, minmax(100px, auto));
+    gap: 0.1rem;
+    margin: 4rem 0rem;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 10px;
+    margin: 20px;
+}
+
+.square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1px;
+    font-size: 3rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 2px solid #ccc;
+    border-radius: 5%;
+    cursor: pointer;
+    transition: 0.1s ease-in;
+    width: 100px;
+    height: 100px;
+    background: #fff;
+}
+
+.square:hover {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+.square.x::before,
+.square.x::after,
+.game-board.x .square:not(.x):not(.circle):hover::before,
+.game-board.x .square:not(.x):not(.circle):hover::after {
+    content: '';
+}
+
+.square.circle::before,
+.square.circle::after {
+    content: '';
+}
+
+.square:first-child,
+.square:nth-child(2),
+.square:nth-child(3) {
+    border-top: none;
+}
+
+.square:nth-child(3n + 1) {
+    border-left: none;
+}
+
+.square:nth-child(3n + 3) {
+    border-right: none;
+}
+
+.square:last-child,
+.square:nth-child(8),
+.square:nth-child(7) {
+    border-bottom: none;
+}
+
+.square-x,
+.square-o {
+    cursor: not-allowed;
+}
+
+.square.x::before,
+.square.x::after {
+    background-color: black;
+}
+
+.game-board.x .square:not(.x):not(.circle):hover::before,
+.game-board.x .square:not(.x):not(.circle):hover::after {
+    background-color: light-grey;
+}
+
+.winning-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    gap: 2rem;
+    text-transform: uppercase;
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: ease-in-out;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.5rem;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.winning-message.show {
+    display: flex;
+}
+
+.mode-selection,
+.controls,
+.scorecard {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 20px;
+}
+
+.mode-selection.show,
+.controls.show,
+.scorecard.show {
+    display: flex;
+}
+
+.mode-selection h1,
+.controls h1,
+.scorecard h2 {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.mode-selection button,
+.controls button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    background: #ff66b2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.mode-selection button:hover,
+.controls button:hover {
+    background: #ff3385;
+}
+
+.controls {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    gap: 2rem;
+    text-transform: uppercase;
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: ease-in-out;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 0.75rem;
+}
+
+.controls.show {
+    display: flex;
+}
+
+.controls label,
+.controls input {
+    margin: 5px;
+}
+
+#restart {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    background: #ff66b2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+#restart:hover {
+    background: #ff3385;
+}
+
+.scorecard {
+    position: fixed;
+    right: 20px;
+    top: 300px;
+    background-color: rgba(196, 77, 77, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(131, 39, 39, 0.5);
+}
+
+.scorecard h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.scorecard p {
+    margin: 5px 0;
+    font-size: 1.2rem;
+}
+
+button {
+    background: var(--button-color);
+    box-shadow: 1px 1px 12px 0px;
+    border: none;
+    font-size: 1rem;
+    padding: 5px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: white;
+    color: black;
+    border-color: black;
+}
+
+button:active {
+    box-shadow: var(--box-shadow);
+}
+
+.input {
+    background: linear-gradient(180deg, #ffffff, #a4b4b4);
+    border: 1px solid #000;
+    font-size: 1rem;
+    text-transform: uppercase;
+    padding-left: 1.5rem;
+    outline: none;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: 'Rock Salt', cursive;
+    text-align: center;
+    margin: 1.5rem;
+    font-size: 12px;
+    width: 100%;
+}
+
+.footer-link,
+a {
+    font-family: 'Rock Salt', cursive;
+    text-decoration: none;
+    color: var(--background);
+}
+
+.bi-github {
+    display: flex;
+    justify-items: center;
+    margin: 0px;
+    font-size: 18px;
+}
+
+body {
+    background-color: #282c34;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    background-color: #61dafb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+.square:hover {
+    background-color: #21a1f1;
+}
+
+.winning-message {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.winning-message.show {
+    display: flex;
+}
+
+.controls,
+.scorecard,
+.mode-selection {
+    margin-top: 20px;
+}
+
+.controls.show,
+.mode-selection.show {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mode-selection {
+    display: none;
+}
+
+.mode-selection button,
+.controls button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 1em;
+}
+
+.controls input {
+    margin: 5px 0;
+    padding: 5px;
+}
+
+.title {
+    text-align: center;
+}
+
+.scorecard p {
+    margin: 5px 0;
+}
+
+
+@media only screen and (min-width: 500px) {
+    * {
+        box-sizing: border-box;
+    }
+
+    header {
+        font-size: 1rem;
+        gap: 11.5rem;
+        margin: 1rem 0rem;
+    }
+
+    main {
+        grid-template-columns: repeat(3, minmax(140px, auto));
+        grid-template-rows: repeat(3, minmax(140px, auto));
+        gap: 1rem;
+        margin: 0;
+    }
+
+    .square {
+        font-size: 7rem;
+        box-shadow: inset 1px 1px 10px;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .controls {
+        gap: 2rem;
+        font-size: 1rem;
+    }
+
+    .controls label,
+    .controls input {
+        margin: 5px;
+    }
+
+    .scorecard {
+        width: 15%;
+        height: 35%;
+    }
+
+    .scorecard p {
+        font-size: 1.4rem;
+    }
+
+    .footer {
+        justify-content: center;
+        font-size: 15px;
+        gap: 2rem;
+    }
+
+    .bi-github {
+        display: flex;
+        justify-items: center;
+        margin: 0px;
+        font-size: 22px;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 4rem;
+        padding: auto;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .scorecard {
+        width: 10%;
+        height: 35%;
+        padding: 1.5%;
+        box-shadow: 1px 1px 10px #333;
+        border-radius: 15px;
+        font-size: 1.2rem;
+    }
+}

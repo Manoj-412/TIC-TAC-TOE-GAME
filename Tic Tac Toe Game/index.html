@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/tic-tac-toe.png" type="image/x-icon">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src="./main.js" defer></script>
+    <title>Tic Tac Toe</title>
+</head>
+<body>
+
+    <header class="title">
+        <center>
+        <h1 class="title">TIC - TAC - TOE</h1>
+        </center>
+    </header>
+
+    <main class="game-board x o" id="gameboard"></main>
+
+    <div class="winning-message" id="winningMessage">
+        <div class="message" id="message"></div>
+        <button id="restart">Restart Game</button>
+    </div>
+
+    <div class="mode-selection show">
+        <h1>Choose Mode</h1>
+        <button id="play-friends">Play with Friends</button>
+        <button id="play-system">Play with System</button>
+    </div>
+
+    <div class="controls">
+        <h1>PLAY A GAME OF TIC-TAC-TOE?</h1>
+        <label for="player1">X's goes first</label>
+        <input type="text" id="player1" placeholder="Player 'X' Name" required>
+        <label for="player2">O's goes second</label>
+        <input type="text" id="player2" placeholder="Player 'O' Name" required>
+        <button id="start-button">Start Game</button>
+    </div>
+    
+    <div class="scorecard" id="scorecard">
+        <h2>Scorecard</h2>
+        <p id="player1-score">Player X: 0</p>
+        <p id="player2-score">Player O: 0</p>
+        <p id="rounds-winner"></p>
+    </div>
+            
+</body>
+</html>
