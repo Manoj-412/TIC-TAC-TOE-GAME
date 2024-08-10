@@ -6,8 +6,8 @@ This repository contains the code for building a TIC TAC TOE GAME using HTML, CS
 
 # Features
 1. Modes: The game includes two different modes.
- i Play with System
-ii Play with friends
+ i. Play with System
+ii. Play with friends
 2. Interactive Components: The game includes interactive elements such as clickable game squares, scorecards, and buttons for resetting the game.
 3. Dynamic Content: The game board updates in real-time, showing player moves and tracking the score in a 'best 2 out of 3' format.
 4. Stylish Interface: CSS styling is applied to give the game a clean and modern look, with a user-friendly design that enhances the gaming experience.
